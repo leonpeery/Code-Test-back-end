@@ -6,7 +6,9 @@ const mongoose = require('mongoose');
 
 const userRoutes = require('./api/routes/users')
 
+//connect to local MongoDB database named 'codetestusers'
 mongoose.connect('mongodb://localhost/codetestusers')
+//sample code to connect to MongoDB Atlas
 // mongoose.connect('mongodb+srv://ldpeery:' + process.env.MONGO_ATLAS_PW + '@code-test-age61.mongodb.net/test');
 
 //use morgan to log requests --used for development

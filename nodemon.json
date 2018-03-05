@@ -1,5 +1,5 @@
 {
     "env": {
-        "MONGO_ATLAS_PW": "534e2c400"
+        "MONGO_ATLAS_PW": "secret"
     }
 }
