@@ -33,6 +33,7 @@ app.use((req, res, next) => {
 
 //For this project only using one route.
 app.use('/users', userRoutes);
+app.use('/authusers', userRoutes);
 
 //To handle undefined routes errors
 app.use((req, res, next) =>{

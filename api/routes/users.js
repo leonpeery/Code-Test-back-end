@@ -21,6 +21,23 @@ router.get('/', (req, res, next) => {
             res.status(500).json({error: err})
         });
 });
+
+router.get('/authusers', (req, res, next) => {
+    User.find({ authorization : true })
+        .exec()
+        .then(docs =>{
+            console.log("authusers",docs);
+            // if (docs.lenght >= 0) {
+            res.status(200).json(docs);
+            // } else {
+            //     res.status(404).json({message: 'No entries found'})
+            // }
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(500).json({error: err})
+        });
+});
 //Create a new user
 router.post('/', (req, res, next) => {
 
@@ -72,9 +89,36 @@ router.delete('/:userId', (req, res, next) => {
 })
 
 
-router.get('/:userId', (req, res, next) => {
-    const id = req.params.userId;
-    User.findById(id)
+// router.get('/:userId', (req, res, next) => {
+//     const id = req.params.userId;
+//     User.findById(id)
+//         .exec()
+//         .then(doc => {
+//             console.log(doc);
+//             if (doc) {
+//                 res.status(200).json(doc);
+//             } else {
+//                 res.status(404).json({message: 'No valid entry found for provided ID'})
+//             }
+//         })
+//         .catch(err =>{
+//             console.log(err)
+//             res.status(500).json({error: err})
+//         });
+    
+// });
+
+router.get('/search/:userSearch', (req, res, next) => {
+    // var search = req.params.userSearch.split(' ');
+    // var regexString = "";
+    // for (var i = 0; i < search.length; i++) {
+    //     regexString += search[i];
+    //     if( i < search.length - 1) regexString += '|';
+    //     }
+    // var re = new RegExp(regexString, 'ig')
+    var query = {$or:[{'name.first':{$regex: req.params.userSearch, $options: 'i'}},{'name.last':{$regex: req.params.userSearch, $options: 'i'}}]}
+    console.log(query)
+    User.find(query)
         .exec()
         .then(doc => {
             console.log(doc);
