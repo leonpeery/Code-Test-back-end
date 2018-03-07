@@ -109,13 +109,6 @@ router.delete('/:userId', (req, res, next) => {
 // });
 
 router.get('/search/:userSearch', (req, res, next) => {
-    // var search = req.params.userSearch.split(' ');
-    // var regexString = "";
-    // for (var i = 0; i < search.length; i++) {
-    //     regexString += search[i];
-    //     if( i < search.length - 1) regexString += '|';
-    //     }
-    // var re = new RegExp(regexString, 'ig')
     var query = {$or:[{'name.first':{$regex: req.params.userSearch, $options: 'i'}},{'name.last':{$regex: req.params.userSearch, $options: 'i'}}]}
     console.log(query)
     User.find(query)
